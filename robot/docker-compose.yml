@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  chatgpt:
+    image: admibo/chatgpt-robot
+    restart: always
+    ports:
+      - 5001:5001
+    environment:
+      LANG: 'C.UTF-8'
+    volumes:
+      - ./config.cfg:/app/config.cfg
+      - ./data:/app/data
+      - ./presets:/app/presets
+      # - ./fonts:/app/fonts # 如果你想自定义字体，就解除注释
