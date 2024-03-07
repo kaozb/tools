@@ -1,5 +1,6 @@
 version: '3.4'
 services:
+
   chatgpt:
     image: admibo/chatgpt-robot
     restart: always
@@ -7,8 +8,21 @@ services:
       - 5001:5001
     environment:
       LANG: 'C.UTF-8'
+    networks:
+      - ai-robot
     volumes:
       - ./config.cfg:/app/config.cfg
       - ./data:/app/data
       - ./presets:/app/presets
-      # - ./fonts:/app/fonts # 如果你想自定义字体，就解除注释
+    depends_on:
+      - gemini-openai-proxy
+
+  gemini-openai-proxy:
+    image: ghcr.io/zuisong/gemini-openai-proxy:deno
+    restart: always
+    networks:
+      - ai-robot
+
+
+networks:
+  ai-robot:
